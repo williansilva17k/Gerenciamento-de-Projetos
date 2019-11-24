@@ -8,6 +8,7 @@ package view;
 import java.awt.Color;
 import java.awt.Point;
 import static java.lang.Thread.sleep;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author WILLIAN
  */
-public class TelaLoguin extends javax.swing.JFrame {
+public class TelaLogin extends javax.swing.JFrame {
 private Point point = new Point();
     /**
      * Creates new form TelaLoguin
      */
-    public TelaLoguin() {
+    public TelaLogin() {
         initComponents();
     }
 
@@ -60,7 +61,7 @@ private Point point = new Point();
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 153));
 
-        jLabel1.setFont(new java.awt.Font("Dust Serif", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login de Acesso");
@@ -104,6 +105,11 @@ private Point point = new Point();
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -198,7 +204,12 @@ private Point point = new Point();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jTextFieldUsuario.getText().equals("admin") && jPasswordFieldSenha.getText().equals("12345")){
-       TelaPrincipal tela = new TelaPrincipal();
+       TelaBemVindo tela = null;
+            try {
+                tela = new TelaBemVindo();
+            } catch (ParseException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
              tela.setVisible(true);
              dispose();
        }else if(jTextFieldUsuario.getText().equals("funcionario") && jPasswordFieldSenha.getText().equals("1234")){
@@ -209,7 +220,7 @@ private Point point = new Point();
        
        }else{
            Point p = this.getLocation();
-        TelaLoguin telaLoguin = this;
+        TelaLogin telaLoguin = this;
         new Thread(){
             public void run(){
                 try{
@@ -221,12 +232,13 @@ private Point point = new Point();
                 }
                 telaLoguin.setLocation(p.x, p.y);
             } catch (InterruptedException ex){
-                Logger.getLogger(TelaLoguin.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
            }
         }.start();
             JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos");
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
@@ -249,6 +261,10 @@ private Point point = new Point();
         jButton2.setForeground(Color.WHITE);
     }//GEN-LAST:event_jButton2MouseExited
 
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -266,20 +282,21 @@ private Point point = new Point();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLoguin().setVisible(true);
+                new TelaLogin().setVisible(true);
             }
         });
     }
