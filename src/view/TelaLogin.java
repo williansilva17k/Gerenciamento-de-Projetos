@@ -236,7 +236,7 @@ private Point point = new Point();
             }
            }
         }.start();
-            JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos");
+            JOptionPane.showMessageDialog(rootPane, "Usuario/senha incorretos");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
