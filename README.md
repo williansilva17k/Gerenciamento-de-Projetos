@@ -1,6 +1,6 @@
 # ProjetoBrabo
 
-Projeto Integrador, da faculdade sistema gerenciador de projetos (java)
+Projeto Integrador, Sistema Gerenciador de Projetos
 
 Status - Finalizado...
 <br>
