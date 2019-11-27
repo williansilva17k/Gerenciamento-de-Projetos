@@ -230,6 +230,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+<<<<<<< HEAD
             }.start();
             JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos");
         } else if (dao.validateLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()) == true && dao.validatePermission(jTextFieldUsuario.getText()) == false) {
@@ -244,6 +245,15 @@ public class TelaLogin extends javax.swing.JFrame {
             tela.setVisible(true);
             dispose();
 
+=======
+                telaLoguin.setLocation(p.x, p.y);
+            } catch (InterruptedException ex){
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           }
+        }.start();
+            JOptionPane.showMessageDialog(rootPane, "Usuario/senha incorretos");
+>>>>>>> d8e5b73e7292d48cf1bbf783370b2566d2f052f1
         }
 
 
