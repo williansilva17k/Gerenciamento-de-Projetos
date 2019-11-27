@@ -4,4 +4,4 @@ Projeto Integrador, Sistema Gerenciador de Projetos
 
 Status - Finalizado...
 <br>
-Apenas um projeto em Java que fizemos para apresentar.
+Apenas um projeto simples em Java que fizemos.
