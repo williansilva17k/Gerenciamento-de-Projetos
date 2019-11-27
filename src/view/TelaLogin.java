@@ -12,18 +12,23 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.bean.Login;
+import model.dao.ProjetoDAO;
 
 /**
  *
  * @author WILLIAN
  */
 public class TelaLogin extends javax.swing.JFrame {
-private Point point = new Point();
+
+    private Point point = new Point();
+
     /**
      * Creates new form TelaLoguin
      */
     public TelaLogin() {
         initComponents();
+        
     }
 
     /**
@@ -95,11 +100,11 @@ private Point point = new Point();
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusPainted(false);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jButton1MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
             }
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -143,14 +148,15 @@ private Point point = new Point();
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,42 +209,44 @@ private Point point = new Point();
     }//GEN-LAST:event_formMouseDragged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextFieldUsuario.getText().equals("admin") && jPasswordFieldSenha.getText().equals("12345")){
-       TelaBemVindo tela = null;
-            try {
-                tela = new TelaBemVindo();
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             tela.setVisible(true);
-             dispose();
-       }else if(jTextFieldUsuario.getText().equals("funcionario") && jPasswordFieldSenha.getText().equals("1234")){
-       
-           TelaFuncionario tela = new TelaFuncionario();
-             tela.setVisible(true);
-             dispose();
-       
-       }else{
-           Point p = this.getLocation();
-        TelaLogin telaLoguin = this;
-        new Thread(){
-            public void run(){
-                try{
-                for (int i = 0; i < 4; i++) {
-                    telaLoguin.setLocation(p.x - 10, p.y);
-                    sleep(20);                       //tela tremer quando nao corretos user/password
-                    telaLoguin.setLocation(p.x + 10, p.y);
-                    sleep(20);
-                }
-                telaLoguin.setLocation(p.x, p.y);
-            } catch (InterruptedException ex){
-                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           }
-        }.start();
-            JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos");
-        }
+        ProjetoDAO dao = new ProjetoDAO();
         
+        
+
+        if (dao.validateLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()) == false) {
+            Point p = this.getLocation();
+            TelaLogin telaLoguin = this;
+            new Thread() {
+                public void run() {
+                    try {
+                        for (int i = 0; i < 4; i++) {
+                            telaLoguin.setLocation(p.x - 10, p.y);
+                            sleep(20);                       //tela tremer quando nao corretos user/password
+                            telaLoguin.setLocation(p.x + 10, p.y);
+                            sleep(20);
+                        }
+                        telaLoguin.setLocation(p.x, p.y);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }.start();
+            JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos");
+        } else if (dao.validateLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()) == true && dao.validatePermission(jTextFieldUsuario.getText()) == false) {
+
+            TelaFuncionario tela = new TelaFuncionario(jTextFieldUsuario.getText());
+            tela.setVisible(true);
+            dispose();
+
+        } else if (dao.validateLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()) == true && dao.validatePermission(jTextFieldUsuario.getText()) == true) {
+
+            TelaBemVindo tela = new TelaBemVindo(jTextFieldUsuario.getText());
+            tela.setVisible(true);
+            dispose();
+
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
@@ -257,7 +265,7 @@ private Point point = new Point();
     }//GEN-LAST:event_jButton2MouseEntered
 
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        jButton2.setBackground(new Color(255,51,51));
+        jButton2.setBackground(new Color(255, 51, 51));
         jButton2.setForeground(Color.WHITE);
     }//GEN-LAST:event_jButton2MouseExited
 

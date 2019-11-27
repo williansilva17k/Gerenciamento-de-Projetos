@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.dao.ProjetoDAO;
 
 /**
  *
@@ -24,24 +26,33 @@ private Point point = new Point();
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaBemVindo() throws ParseException {      
-        initComponents();
-        String nome = "Willian";
+    public TelaBemVindo() throws ParseException {
+        initComponents();       
+    }
+
+    public TelaBemVindo(String user) throws HeadlessException {
+       initComponents();
+        ProjetoDAO dao = new ProjetoDAO();
+
+
+        String nome = dao.pegaNomeUser(user);
+
         Calendar c = Calendar.getInstance();
         Date data = c.getTime();
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         int hora = c.get(Calendar.HOUR_OF_DAY);
-        
-            if(hora > 6 && hora < 12){
-                jLabel1.setText("Bom Dia "+ nome +" hoje é "+ sdf.format(data));
-            } else if(hora > 12 && hora <18){
-                jLabel1.setText("Boa Tarde "+ nome +" hoje é "+ sdf.format(data));
-            }else{
-                jLabel1.setText("Boa Noite "+ nome +" hoje é "+ sdf.format(data));
-            }
+
+        if (hora > 6 && hora < 12) {
+            jLabel1.setText("Bom Dia " + nome + " hoje é " + sdf.format(data));
+        } else if (hora > 12 && hora < 18) {
+            jLabel1.setText("Boa Tarde " + nome + " hoje é " + sdf.format(data));
+        } else {
+            jLabel1.setText("Boa Noite " + nome + " hoje é " + sdf.format(data));
+        }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,16 +94,16 @@ private Point point = new Point();
         jButton1.setBackground(new java.awt.Color(58, 61, 84));
         jButton1.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Cadastro de Funcionário");
+        jButton1.setText("Funcionários");
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusable(false);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jButton1MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
             }
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +115,7 @@ private Point point = new Point();
         jButton2.setBackground(new java.awt.Color(58, 61, 84));
         jButton2.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Atribuição de Tarefas");
+        jButton2.setText("Tarefas");
         jButton2.setBorderPainted(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
@@ -160,7 +171,7 @@ private Point point = new Point();
                     .addGroup(cdBorda1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
                     .addGroup(cdBorda1Layout.createSequentialGroup()
                         .addGroup(cdBorda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
