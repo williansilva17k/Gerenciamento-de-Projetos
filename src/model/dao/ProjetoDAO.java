@@ -25,7 +25,7 @@ import model.bean.Tarefa;
 
 /**
  *
- * @author grs
+ * @author WILLIAN
  */
 public class ProjetoDAO {
 
