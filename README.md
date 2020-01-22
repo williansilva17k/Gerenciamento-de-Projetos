@@ -1,4 +1,4 @@
-# ProjetoBrabo
+# Projeto Gerenciamento de Projetos
 
 Projeto Integrador, Sistema Gerenciador de Projetos
 
