@@ -1,4 +1,4 @@
-# Projeto Gerenciamento de Projetos
+# Gerenciamento de Projetos
 
 Projeto Integrador, Sistema Gerenciador de Projetos
 
